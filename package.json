@@ -2,6 +2,10 @@
   "name": "shop-angular-cloudfront-backend",
   "version": "1.0.0",
   "description": "",
+  "main": "getProductsList.js",
+  "scripts": {
+    "deploy": "serverless deploy"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"
