@@ -5,7 +5,8 @@
   "main": "serverless.ts",
   "scripts": {
     "deploy": "serverless deploy",
-    "test-get-products-list": "serverless invoke local --function getProductsList --path src/functions/get-products-list/mock.json"
+    "test-get-products-list": "serverless invoke local --function getProductsList --path src/functions/get-products-list/mock.json",
+    "test-get-products-by-id": "serverless invoke local --function getProductsById --path src/functions/get-products-by-id/mock.json"
   },
   "engines": {
     "node": ">=14.15.0"
