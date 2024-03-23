@@ -4,8 +4,8 @@ import { middyfy } from '@libs/lambda';
 import { ProductsDB } from 'src/products.db/products.db';
 
 const handler: ValidatedEventAPIGatewayProxyEvent<unknown> = async (event) => {
-	const productsService = ProductsDB.getInstance();
-	const products = await productsService.getProducts();
+	const productsDb = ProductsDB.getInstance();
+	const products = await productsDb.getProducts();
 
 	const eventId = event.pathParameters.id;
 	const productById = products.find(product => product.id === eventId);
