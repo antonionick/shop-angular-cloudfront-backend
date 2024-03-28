@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
-  "type": "module",
   "scripts": {
     "deploy": "serverless deploy",
     "test-get-products-list": "serverless invoke local --function getProductsList --path src/functions/get-products-list/mock.json",
