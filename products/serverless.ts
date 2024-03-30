@@ -2,6 +2,7 @@ import type { AWS } from '@serverless/typescript';
 
 import getProductsList from '@functions/get-products-list';
 import getProductsById from '@functions/get-products-by-id';
+import createProduct from '@functions/create-product';
 
 const serverlessConfiguration: AWS = {
   service: 'shop-angular-cloudfront-backend',
@@ -29,7 +30,7 @@ const serverlessConfiguration: AWS = {
     iamManagedPolicies: ['arn:aws:iam::aws:policy/service-role/AWSLambdaDynamoDBExecutionRole'],
   },
   // import the function via paths
-  functions: { getProductsList, getProductsById },
+  functions: { getProductsList, getProductsById, createProduct },
   package: { individually: true },
   custom: {
     esbuild: {

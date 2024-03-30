@@ -6,7 +6,8 @@
   "scripts": {
     "deploy": "serverless deploy",
     "test-get-products-list": "serverless invoke local --function getProductsList --path src/functions/get-products-list/mock.json",
-    "test-get-products-by-id": "serverless invoke local --function getProductsById --path src/functions/get-products-by-id/mock.json"
+    "test-get-products-by-id": "serverless invoke local --function getProductsById --path src/functions/get-products-by-id/mock.json",
+    "test-create-product": "serverless invoke local --function createProduct --path src/functions/create-product/mock.json"
   },
   "engines": {
     "node": ">=14.15.0"
@@ -15,7 +16,8 @@
     "@aws-sdk/client-dynamodb": "^3.540.0",
     "@aws-sdk/lib-dynamodb": "^3.540.0",
     "@middy/core": "^3.4.0",
-    "@middy/http-json-body-parser": "^3.4.0"
+    "@middy/http-json-body-parser": "^3.4.0",
+    "@middy/validator": "^5.3.2"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",

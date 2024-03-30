@@ -5,25 +5,25 @@ import { ProductsDB } from 'src/db/products-db';
 import { StocksDB } from 'src/db/stocks-db';
 
 const handler: ValidatedEventAPIGatewayProxyEvent<unknown> = async (event) => {
-	const eventId = event.pathParameters.id;
+  const eventId = event.pathParameters.id;
 
-	const product = await ProductsDB.getProductById(eventId);
+  const product = await ProductsDB.getProductById(eventId);
 
-	if (!product) {
-		return {
-			statusCode: 400,
-			body: 'Product not found'
-		};
-	}
+  if (!product) {
+    return {
+      statusCode: 400,
+      body: 'Product not found',
+    };
+  }
 
-	const stock = await StocksDB.getStockById(eventId);
+  const stock = await StocksDB.getStockById(eventId);
 
-	const result = {
-		...product,
-		count: stock?.count ?? 0,
-	}
+  const result = {
+    ...product,
+    count: stock?.count ?? 0,
+  };
 
-	return formatJSONResponse(result);
+  return formatJSONResponse(result);
 };
 
 export const getProductsById = middyfy(handler);

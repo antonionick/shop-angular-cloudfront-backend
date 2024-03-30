@@ -10,11 +10,11 @@ const handler: ValidatedEventAPIGatewayProxyEvent<unknown> = async () => {
     const stocks = await StocksDB.getAllStocks();
 
     const result = products.map((product) => {
-      const foundStock = stocks.find((stock) => product.id === stock.product_id);
+      const stockById = stocks.find((stock) => product.id === stock.product_id);
 
       return {
         ...product,
-        count: foundStock?.count ?? 0,
+        count: stockById?.count ?? 0,
       };
     });
 
