@@ -9,6 +9,8 @@ import { TProductCreate } from 'src/models/product.model';
 
 const handler: ValidatedEventAPIGatewayProxyEvent<TProductCreate> = async (event) => {
   try {
+    console.log(event);
+
     const productToCreate = event.body as TProductCreate;
 
     const response = await ProductsDB.createProduct(productToCreate);

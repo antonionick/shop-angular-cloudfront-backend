@@ -2,5 +2,5 @@
   "headers": {
     "Content-Type": "application/json"
   },
-  "body": "{\"title\":\"test_title\",\"description\":\"test_description\",\"price\":12}"
+  "body": "{\"title\":\"test_title\",\"price\":12}"
 }

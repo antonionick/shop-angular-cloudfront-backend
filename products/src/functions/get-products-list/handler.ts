@@ -4,8 +4,10 @@ import { middyfy } from '@libs/lambda';
 import { ProductsDB } from 'src/db/products-db';
 import { StocksDB } from 'src/db/stocks-db';
 
-const handler: ValidatedEventAPIGatewayProxyEvent<unknown> = async () => {
+const handler: ValidatedEventAPIGatewayProxyEvent<unknown> = async (event) => {
   try {
+    console.log(event);
+
     const products = await ProductsDB.getAllProducts();
     const stocks = await StocksDB.getAllStocks();
 
