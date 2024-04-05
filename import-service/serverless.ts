@@ -19,6 +19,12 @@ const serverlessConfiguration: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
     },
+    httpApi: {
+      cors: {
+        allowedMethods: ['GET'],
+        allowedOrigins: ['http://localhost:4200', 'https://d1f2rhr76fjntk.cloudfront.net'],
+      },
+    },
   },
   // import the function via paths
   functions: { importProductsFile },

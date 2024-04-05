@@ -32,7 +32,7 @@ const handler: ValidatedEventAPIGatewayProxyEvent<unknown> = async (event) => {
 
   return {
     statusCode: 200,
-    body: signedUrl,
+    body: JSON.stringify(signedUrl),
   };
 };
 
