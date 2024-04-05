@@ -2,6 +2,7 @@ import type { AWS } from '@serverless/typescript';
 
 import getProductsList from '@functions/get-products-list';
 import getProductsById from '@functions/get-products-by-id';
+import createProduct from '@functions/create-product';
 
 const serverlessConfiguration: AWS = {
   service: 'shop-angular-cloudfront-backend',
@@ -26,9 +27,10 @@ const serverlessConfiguration: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
     },
+    iamManagedPolicies: ['arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess'],
   },
   // import the function via paths
-  functions: { getProductsList, getProductsById },
+  functions: { getProductsList, getProductsById, createProduct },
   package: { individually: true },
   custom: {
     esbuild: {
@@ -40,6 +42,54 @@ const serverlessConfiguration: AWS = {
       define: { 'require.resolve': undefined },
       platform: 'node',
       concurrency: 10,
+    },
+  },
+  resources: {
+    Resources: {
+      ProductsTable: {
+        Type: 'AWS::DynamoDB::Table',
+        Properties: {
+          TableName: 'Products',
+          AttributeDefinitions: [
+            {
+              AttributeName: 'id',
+              AttributeType: 'S',
+            },
+          ],
+          KeySchema: [
+            {
+              AttributeName: 'id',
+              KeyType: 'HASH',
+            },
+          ],
+          ProvisionedThroughput: {
+            ReadCapacityUnits: 5,
+            WriteCapacityUnits: 5,
+          },
+        },
+      },
+      StocksTable: {
+        Type: 'AWS::DynamoDB::Table',
+        Properties: {
+          TableName: 'Stocks',
+          AttributeDefinitions: [
+            {
+              AttributeName: 'product_id',
+              AttributeType: 'S',
+            },
+          ],
+          KeySchema: [
+            {
+              AttributeName: 'product_id',
+              KeyType: 'HASH',
+            },
+          ],
+          ProvisionedThroughput: {
+            ReadCapacityUnits: 5,
+            WriteCapacityUnits: 5,
+          },
+        },
+      },
     },
   },
 };

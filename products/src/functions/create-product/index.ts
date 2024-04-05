@@ -1,17 +1,16 @@
 import { handlerPath } from '@libs/handler-resolver';
 
 export default {
-  handler: `${handlerPath(__dirname)}/handler.getProductsList`,
+  handler: `${handlerPath(__dirname)}/handler.createProduct`,
   events: [
     {
       httpApi: {
-        method: 'GET',
+        method: 'POST',
         path: '/products',
       },
     },
   ],
   environment: {
-    STOCKS_TABLE_NAME: 'Stocks',
     PRODUCTS_TABLE_NAME: 'Products',
   },
 };

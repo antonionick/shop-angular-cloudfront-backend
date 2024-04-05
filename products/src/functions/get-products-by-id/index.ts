@@ -10,4 +10,8 @@ export default {
       },
     },
   ],
+  environment: {
+    STOCKS_TABLE_NAME: 'Stocks',
+    PRODUCTS_TABLE_NAME: 'Products',
+  },
 };
