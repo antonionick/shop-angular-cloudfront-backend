@@ -4,7 +4,8 @@
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "sls deploy",
+    "test-import-products-file": "serverless invoke local --function importProductsFile --path src/functions/import-products-file/mock.json"
   },
   "engines": {
     "node": ">=14.15.0"
