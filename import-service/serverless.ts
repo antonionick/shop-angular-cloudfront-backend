@@ -41,6 +41,48 @@ const serverlessConfiguration: AWS = {
       concurrency: 10,
     },
   },
+  resources: {
+    Resources: {
+      ImportBucket: {
+        Type: 'AWS::S3::Bucket',
+        Properties: {
+          BucketName: 'import-service-bucket-aws-mentoring-program',
+          PublicAccessBlockConfiguration: {
+            BlockPublicPolicy: false,
+          },
+          CorsConfiguration: {
+            CorsRules: [
+              {
+                AllowedHeaders: ['*'],
+                AllowedMethods: ['PUT'],
+                AllowedOrigins: ['http://localhost:4200', 'https://d1f2rhr76fjntk.cloudfront.net'],
+              },
+            ],
+          },
+        },
+      },
+      ImportBucketPolicy: {
+        Type: 'AWS::S3::BucketPolicy',
+        Properties: {
+          Bucket: {
+            Ref: 'ImportBucket',
+          },
+          PolicyDocument: {
+            Version: '2012-10-17',
+            Statement: [
+              {
+                Sid: 'AddPublicReadCannedAcl',
+                Effect: 'Allow',
+                Principal: '*',
+                Action: ['s3:PutObject', 's3:PutObjectAcl'],
+                Resource: 'arn:aws:s3:::import-service-bucket-aws-mentoring-program/*',
+              },
+            ],
+          },
+        },
+      },
+    },
+  },
 };
 
 module.exports = serverlessConfiguration;

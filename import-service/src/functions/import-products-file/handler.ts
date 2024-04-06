@@ -4,11 +4,11 @@ import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 
 const REGION = 'eu-central-1';
-const BUCKET_NAME = 'import-service-bucket-anton';
+const BUCKET_NAME = 'import-service-bucket-aws-mentoring-program';
 
 const createPresignedUrlWithClient = ({ region, bucket, key }) => {
   const client = new S3Client({ region });
-  const command = new PutObjectCommand({ Bucket: bucket, Key: key });
+  const command = new PutObjectCommand({ Bucket: bucket, Key: key, ContentType: 'text/csv' });
   return getSignedUrl(client, command, { expiresIn: 3600 });
 };
 
@@ -27,7 +27,7 @@ const handler: ValidatedEventAPIGatewayProxyEvent<unknown> = async (event) => {
   const signedUrl = await createPresignedUrlWithClient({
     region: REGION,
     bucket: BUCKET_NAME,
-    key: name,
+    key: `uploaded/${name}`,
   });
 
   return {
