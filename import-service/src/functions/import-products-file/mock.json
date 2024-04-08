@@ -4,6 +4,6 @@
   },
   "body": "{}",
   "queryStringParameters": {
-    "name": "test.txt"
+    "name": "test.csv"
   }
 }
