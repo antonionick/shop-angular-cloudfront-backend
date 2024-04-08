@@ -5,7 +5,8 @@
   "main": "serverless.ts",
   "scripts": {
     "deploy": "sls deploy",
-    "test-import-products-file": "serverless invoke local --function importProductsFile --path src/functions/import-products-file/mock.json"
+    "test-import-products-file": "serverless invoke local --function importProductsFile --path src/functions/import-products-file/mock.json",
+    "test-import-file-parser": "serverless invoke local --function importFileParser --path src/functions/import-file-parser/mock.json"
   },
   "engines": {
     "node": ">=14.15.0"

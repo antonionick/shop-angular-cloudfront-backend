@@ -1,0 +1,21 @@
+{
+  "Records": [
+    {
+      "s3": {
+        "s3SchemaVersion": "1.0",
+        "configurationId": "import-service-dev-importFileParser-9eceafef0fe575eb52543c9070542d86",
+        "bucket": {
+          "name": "import-service-bucket-aws-mentoring-program",
+          "ownerIdentity": { "principalId": "A2E0SYKOM6U5QU" },
+          "arn": "arn:aws:s3:::import-service-bucket-aws-mentoring-program"
+        },
+        "object": {
+          "key": "uploaded/test.csv",
+          "size": 36,
+          "eTag": "fccaf035fa8a5a3dcd2fc85ff199d3c2",
+          "sequencer": "00661392D7C47966E8"
+        }
+      }
+    }
+  ]
+}
