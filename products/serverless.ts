@@ -1,13 +1,15 @@
 import type { AWS } from '@serverless/typescript';
+import type { Lift } from 'serverless-lift';
 
 import getProductsList from '@functions/get-products-list';
 import getProductsById from '@functions/get-products-by-id';
 import createProduct from '@functions/create-product';
+import catalogBatchProcess from '@functions/catalog-batch-process';
 
-const serverlessConfiguration: AWS = {
+const serverlessConfiguration: AWS & Lift = {
   service: 'shop-angular-cloudfront-backend',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild'],
+  plugins: ['serverless-esbuild', 'serverless-lift'],
   provider: {
     name: 'aws',
     runtime: 'nodejs18.x',
@@ -90,6 +92,13 @@ const serverlessConfiguration: AWS = {
           },
         },
       },
+    },
+  },
+  constructs: {
+    catalogItemsQueue: {
+      type: 'queue',
+      batchSize: 5,
+      worker: catalogBatchProcess,
     },
   },
 };
