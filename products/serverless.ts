@@ -94,8 +94,26 @@ const serverlessConfiguration: AWS = {
       CatalogItemsQueue: {
         Type: 'AWS::SQS::Queue',
         Properties: {
-          QueueName: 'catalog-item-queue'
-        }
+          QueueName: 'catalog-item-queue',
+        },
+      },
+      CatalogItemsQueuePolicy: {
+        Type: 'AWS::SQS::QueuePolicy',
+        Properties: {
+          Queues: [{ Ref: 'CatalogItemsQueue' }],
+          PolicyDocument: {
+            Version: '2012-10-17',
+            Statement: [
+              {
+                Sid: 'Allow-User-SendMessage',
+                Effect: 'Allow',
+                Principal: '*',
+                Action: ['sqs:SendMessage'],
+                Resource: 'arn:aws:sqs:eu-central-1:058264190345:catalog-item-queue',
+              },
+            ],
+          },
+        },
       },
     },
   },
