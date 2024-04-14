@@ -28,7 +28,10 @@ const serverlessConfiguration: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
     },
-    iamManagedPolicies: ['arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess'],
+    iamManagedPolicies: [
+      'arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess',
+      'arn:aws:iam::aws:policy/AWSLambda_FullAccess',
+    ],
   },
   // import the function via paths
   functions: { getProductsList, getProductsById, createProduct, catalogBatchProcess },
