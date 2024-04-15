@@ -3,6 +3,7 @@ import type { AWS } from '@serverless/typescript';
 import getProductsList from '@functions/get-products-list';
 import getProductsById from '@functions/get-products-by-id';
 import createProduct from '@functions/create-product';
+import createProductNotification from '@functions/create-product-notification';
 import catalogBatchProcess from '@functions/catalog-batch-process';
 
 const serverlessConfiguration: AWS = {
@@ -31,10 +32,17 @@ const serverlessConfiguration: AWS = {
     iamManagedPolicies: [
       'arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess',
       'arn:aws:iam::aws:policy/AWSLambda_FullAccess',
+      'arn:aws:iam::aws:policy/AmazonSNSFullAccess',
     ],
   },
   // import the function via paths
-  functions: { getProductsList, getProductsById, createProduct, catalogBatchProcess },
+  functions: {
+    getProductsList,
+    getProductsById,
+    createProduct,
+    catalogBatchProcess,
+    createProductNotification,
+  },
   package: { individually: true },
   custom: {
     esbuild: {
@@ -116,6 +124,12 @@ const serverlessConfiguration: AWS = {
               },
             ],
           },
+        },
+      },
+      CreateProductTopic: {
+        Type: 'AWS::SNS::Topic',
+        Properties: {
+          TopicName: 'CreateProductTopic',
         },
       },
     },
