@@ -1,0 +1,9 @@
+{
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": "{}",
+  "queryStringParameters": {
+    "name": "test.csv"
+  }
+}

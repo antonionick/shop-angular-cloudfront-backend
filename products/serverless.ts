@@ -19,8 +19,8 @@ const serverlessConfiguration: AWS = {
     },
     httpApi: {
       cors: {
-        allowedMethods: ['GET'],
-        allowedOrigins: ['https://d1f2rhr76fjntk.cloudfront.net'],
+        allowedMethods: ['GET', 'POST'],
+        allowedOrigins: ['http://localhost:4200', 'https://d1f2rhr76fjntk.cloudfront.net'],
       },
     },
     environment: {
