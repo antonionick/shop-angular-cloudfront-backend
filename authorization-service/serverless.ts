@@ -5,8 +5,7 @@ import basicAuthorizer from '@functions/basic-authorizer';
 const serverlessConfiguration: AWS = {
   service: 'authorization-service',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild'],
-  useDotenv: true,
+  plugins: ['serverless-esbuild', 'serverless-dotenv-plugin'],
   provider: {
     name: 'aws',
     runtime: 'nodejs18.x',
@@ -19,8 +18,6 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
-      LOGIN: 'env:login',
-      PASSWORD: 'env.password'
     },
   },
   // import the function via paths
