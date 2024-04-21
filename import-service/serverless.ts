@@ -25,6 +25,14 @@ const serverlessConfiguration: AWS = {
         allowedMethods: ['GET'],
         allowedOrigins: ['http://localhost:4200', 'https://d1f2rhr76fjntk.cloudfront.net'],
       },
+      authorizers: {
+        basicAuthorizer: {
+          type: 'request',
+          identitySource: '$request.header.Authorization',
+          functionArn:
+            'arn:aws:lambda:eu-central-1:058264190345:function:authorization-service-dev-basicAuthorizer',
+        },
+      },
     },
   },
   // import the function via paths
