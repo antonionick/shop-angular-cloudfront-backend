@@ -3,6 +3,8 @@ import type { AWS } from '@serverless/typescript';
 import getProductsList from '@functions/get-products-list';
 import getProductsById from '@functions/get-products-by-id';
 import createProduct from '@functions/create-product';
+import createProductNotification from '@functions/create-product-notification';
+import catalogBatchProcess from '@functions/catalog-batch-process';
 
 const serverlessConfiguration: AWS = {
   service: 'shop-angular-cloudfront-backend',
@@ -27,10 +29,20 @@ const serverlessConfiguration: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
     },
-    iamManagedPolicies: ['arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess'],
+    iamManagedPolicies: [
+      'arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess',
+      'arn:aws:iam::aws:policy/AWSLambda_FullAccess',
+      'arn:aws:iam::aws:policy/AmazonSNSFullAccess',
+    ],
   },
   // import the function via paths
-  functions: { getProductsList, getProductsById, createProduct },
+  functions: {
+    getProductsList,
+    getProductsById,
+    createProduct,
+    catalogBatchProcess,
+    createProductNotification,
+  },
   package: { individually: true },
   custom: {
     esbuild: {
@@ -88,6 +100,36 @@ const serverlessConfiguration: AWS = {
             ReadCapacityUnits: 5,
             WriteCapacityUnits: 5,
           },
+        },
+      },
+      CatalogItemsQueue: {
+        Type: 'AWS::SQS::Queue',
+        Properties: {
+          QueueName: 'catalog-item-queue',
+        },
+      },
+      CatalogItemsQueuePolicy: {
+        Type: 'AWS::SQS::QueuePolicy',
+        Properties: {
+          Queues: [{ Ref: 'CatalogItemsQueue' }],
+          PolicyDocument: {
+            Version: '2012-10-17',
+            Statement: [
+              {
+                Sid: 'Allow-User-SendMessage',
+                Effect: 'Allow',
+                Principal: '*',
+                Action: ['sqs:SendMessage'],
+                Resource: 'arn:aws:sqs:eu-central-1:058264190345:catalog-item-queue',
+              },
+            ],
+          },
+        },
+      },
+      CreateProductTopic: {
+        Type: 'AWS::SNS::Topic',
+        Properties: {
+          TopicName: 'CreateProductTopic',
         },
       },
     },
